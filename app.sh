@@ -15,6 +15,5 @@ if [ -n "${CONFIGFILE}" ]; then
   fi
   exec /app/connect.sh `pwd`/${CONFIGFILE}
 else
-#  exec /app/roundrobin.py
-  bail "Set CONFIGFILE"
+  exec /app/roundrobin.py
 fi

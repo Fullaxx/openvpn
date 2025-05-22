@@ -6,13 +6,13 @@ LABEL author="Brett Kuskie <fullaxx@gmail.com>"
 # ------------------------------------------------------------------------------
 # Create a docker image suitable for development
 RUN apt-get update && \
-    apt-get install --no-install-recommends -y curl dnsutils iproute2 iputils-ping mtr nano openvpn && \
+    apt-get install --no-install-recommends -y curl dnsutils iproute2 iputils-ping mtr nano openvpn python3-minimal && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
 
 # ------------------------------------------------------------------------------
 # Prepare the image
-COPY app.sh connect.sh up.sh down.sh /app/
+COPY app.sh roundrobin.py connect.sh cycle.sh up.sh down.sh /app/
 
 # ------------------------------------------------------------------------------
 # Define default command
