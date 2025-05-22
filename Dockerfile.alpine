@@ -4,6 +4,10 @@ FROM alpine:latest
 LABEL author="Brett Kuskie <fullaxx@gmail.com>"
 
 # ------------------------------------------------------------------------------
+# Set environment variables
+ENV TZ=Etc/Zulu
+
+# ------------------------------------------------------------------------------
 # Create a docker image suitable for development
 RUN apk update && \
     apk add --no-cache bash bind-tools curl iproute2-ss iputils-ping mtr nano openvpn python3 && \

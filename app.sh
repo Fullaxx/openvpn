@@ -6,7 +6,11 @@ bail()
   exit 1
 }
 
-cd /profiles
+if [ -d "/profiles" ]; then
+  cd /profiles
+else
+  bail "/profiles does not exist!"
+fi
 
 if [ -n "${CONFIGFILE}" ]; then
   echo "CONFIGFILE=${CONFIGFILE}"
