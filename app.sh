@@ -6,10 +6,18 @@ bail()
   exit 1
 }
 
+# Make sure /profiles exists
 if [ -d "/profiles" ]; then
   cd /profiles
 else
   bail "/profiles does not exist!"
+fi
+
+# Make sure we have at least 1 profile
+echo "Searching /profiles ..."
+PROFILECOUNT=`ls -l *.ovpn | wc -l`
+if [ "${PROFILECOUNT}" == "0" ]; then
+  bail "${PROFILECOUNT} profiles found!"
 fi
 
 if [ -n "${CONFIGFILE}" ]; then
