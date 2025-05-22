@@ -20,5 +20,9 @@ RUN apt-get update && \
 COPY app.sh roundrobin.py connect.sh cycle.sh up.sh down.sh /app/
 
 # ------------------------------------------------------------------------------
+# Add volumes
+VOLUME /profiles
+
+# ------------------------------------------------------------------------------
 # Define default command
 CMD ["/app/app.sh"]
