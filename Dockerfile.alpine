@@ -1,0 +1,18 @@
+# ------------------------------------------------------------------------------
+# Pull base image
+FROM alpine:latest
+LABEL author="Brett Kuskie <fullaxx@gmail.com>"
+
+# ------------------------------------------------------------------------------
+# Create a docker image suitable for development
+RUN apk update && \
+    apk add --no-cache bash bind-tools curl iproute2-ss iputils-ping mtr nano openvpn && \
+    rm -rf /var/cache/apk/*
+
+# ------------------------------------------------------------------------------
+# Prepare the image
+COPY app.sh connect.sh up.sh down.sh /app/
+
+# ------------------------------------------------------------------------------
+# Define default command
+CMD ["/app/app.sh"]
