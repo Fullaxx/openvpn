@@ -20,6 +20,12 @@ if [ "${PROFILECOUNT}" == "0" ]; then
   bail "${PROFILECOUNT} profiles found!"
 fi
 
+if [ -n ${ENABLEMASQ} ]; then
+  IPFORWARD=`cat /proc/sys/net/ipv4/ip_forward`
+  if [ "${IPFORWARD}" != "1" ]; then bail "Enable /proc/sys/net/ipv4/ip_forward"; fi
+  iptables -t nat -A POSTROUTING -o ${ENABLEMASQ} -j MASQUERADE
+fi
+
 if [ -n "${CONFIGFILE}" ]; then
   echo "CONFIGFILE=${CONFIGFILE}"
   if [ ! -r ${CONFIGFILE} ]; then
