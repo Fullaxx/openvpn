@@ -22,7 +22,7 @@ fi
 
 if [ -n ${ENABLEMASQ} ]; then
   IPFORWARD=`cat /proc/sys/net/ipv4/ip_forward`
-  if [ "${IPFORWARD}" != "1" ]; then bail "Enable /proc/sys/net/ipv4/ip_forward"; fi
+  if [ "${IPFORWARD}" != "1" ]; then bail "Enable /proc/sys/net/ipv4/ip_forward with --sysctl net.ipv4.ip_forward=1"; fi
   iptables -t nat -A POSTROUTING -o ${ENABLEMASQ} -j MASQUERADE
 fi
 
