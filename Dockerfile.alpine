@@ -10,7 +10,18 @@ ENV TZ=Etc/Zulu
 # ------------------------------------------------------------------------------
 # Create a docker image suitable for development
 RUN apk update && \
-    apk add --no-cache bash bind-tools curl iproute2-ss iptables iputils-ping mtr nano openvpn python3 && \
+    apk add --no-cache \
+      bash \
+      bind-tools \
+      coreutils \
+      curl \
+      iproute2-ss \
+      iptables \
+      iputils-ping \
+      mtr \
+      nano \
+      openvpn \
+      python3 && \
     rm -rf /var/cache/apk/*
 
 # ------------------------------------------------------------------------------
