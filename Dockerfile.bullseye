@@ -17,7 +17,7 @@ RUN apt-get update && \
 
 # ------------------------------------------------------------------------------
 # Prepare the image
-COPY app.sh roundrobin.py connect.sh cycle.sh up.sh down.sh /app/
+COPY app.sh roundrobin.py connect.sh cycle.sh up.sh down.sh debug.sh /app/
 
 # ------------------------------------------------------------------------------
 # Add volumes
