@@ -14,7 +14,6 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-# echo -e "\nLaunching openvpn with $1 ..."
 openvpn --config $1 \
   --resolv-retry 0 \
   --connect-retry 1 1 \
