@@ -20,12 +20,21 @@ if [ "${PROFILECOUNT}" == "0" ]; then
   bail "${PROFILECOUNT} profiles found!"
 fi
 
-if [ -n ${ENABLEMASQ} ]; then
-  IPFORWARD=`cat /proc/sys/net/ipv4/ip_forward`
-  if [ "${IPFORWARD}" != "1" ]; then bail "Enable /proc/sys/net/ipv4/ip_forward with --sysctl net.ipv4.ip_forward=1"; fi
-  iptables -t nat -A POSTROUTING -o ${ENABLEMASQ} -j MASQUERADE
+# if we are going to use this as a MASQ box, routing must be enabled
+if [ "${ENABLEMASQ}" == "1" ]; then
+  ENABLEIP4ROUTING="1"
+  touch /app/MASQ_ENABLED.flag
 fi
 
+# If we need routing, check that it was enabled during container creation
+if [ "${ENABLEIP4ROUTING}" == "1" ]; then
+  IPFORWARD=`cat /proc/sys/net/ipv4/ip_forward`
+  if [ "${IPFORWARD}" != "1" ]; then
+    bail "Enable /proc/sys/net/ipv4/ip_forward with --sysctl net.ipv4.ip_forward=1"
+  fi
+fi
+
+# Launch connect.sh or roundrobin.py
 if [ -n "${CONFIGFILE}" ]; then
   echo "CONFIGFILE=${CONFIGFILE}"
   if [ ! -r ${CONFIGFILE} ]; then
