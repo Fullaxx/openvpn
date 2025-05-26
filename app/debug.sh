@@ -18,3 +18,6 @@ curl https://ipv4.icanhazip.com
 
 echo -n "ipv6.icanhazip.com: "
 curl https://ipv6.icanhazip.com
+
+echo -n "ifconfig.me: "
+curl https://ifconfig.me
