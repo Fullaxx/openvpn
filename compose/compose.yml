@@ -1,0 +1,58 @@
+networks:
+  vpn_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+
+services:
+  airvpn:
+    image: fullaxx/openvpn:alpine
+    restart: unless-stopped
+    tty: true
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    sysctls:
+      net.ipv4.ip_forward: "1"
+    networks:
+      vpn_net:
+        ipv4_address: 172.18.0.2
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 1.1.1.1
+    environment:
+      - ENABLEMASQ=1
+      - RANDOMIZE_PROFILE_LIST=True
+#      - CONFIGFILE=single_profile.ovpn
+    volumes:
+      - /srv/docker/openvpn/profiles/:/profiles:ro
+
+  qbt:
+    image: fullaxx/qbittorrent
+    restart: "no"
+    depends_on:
+      - airvpn
+    shm_size: '2g'
+    security_opt:
+      - seccomp=unconfined
+    cap_add:
+      - NET_ADMIN
+    networks:
+      vpn_net:
+        ipv4_address: 172.18.0.9
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 1.1.1.1
+    environment:
+      - GATEWAY=172.18.0.2
+      - VNCRES=2560x1440
+      - WALLPAPER=2
+      - WPLAYOUT=cover
+    ports:
+      - 172.17.0.1:5909:5901
+    volumes:
+      - /srv/docker/qbt/data:/data
