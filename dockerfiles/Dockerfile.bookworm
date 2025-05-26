@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # Pull base image
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 LABEL author="Brett Kuskie <fullaxx@gmail.com>"
 
 # ------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ RUN apt-get update && \
 
 # ------------------------------------------------------------------------------
 # Prepare the image
-COPY app.sh roundrobin.py connect.sh cycle.sh up.sh down.sh debug.sh /app/
+COPY app/* /app/
 
 # ------------------------------------------------------------------------------
 # Add volumes

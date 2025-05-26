@@ -1,32 +1,33 @@
 # ------------------------------------------------------------------------------
 # Pull base image
-FROM alpine:latest
+FROM ubuntu:noble
 LABEL author="Brett Kuskie <fullaxx@gmail.com>"
 
 # ------------------------------------------------------------------------------
 # Set environment variables
 ENV TZ=Etc/Zulu
+ENV DEBIAN_FRONTEND=noninteractive
 
 # ------------------------------------------------------------------------------
 # Create a docker image suitable for development
-RUN apk update && \
-    apk add --no-cache \
-      bash \
-      bind-tools \
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
       coreutils \
       curl \
-      iproute2-ss \
+      dnsutils \
+      iproute2 \
       iptables \
       iputils-ping \
       mtr \
       nano \
       openvpn \
-      python3 && \
-    rm -rf /var/cache/apk/*
+      python3-minimal && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
 
 # ------------------------------------------------------------------------------
 # Prepare the image
-COPY app.sh roundrobin.py connect.sh cycle.sh up.sh down.sh debug.sh /app/
+COPY app/* /app/
 
 # ------------------------------------------------------------------------------
 # Add volumes
