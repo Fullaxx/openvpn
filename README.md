@@ -23,3 +23,42 @@ docker build -f dockerfiles/Dockerfile.noble    -t="fullaxx/openvpn:noble" githu
 docker pull fullaxx/openvpn:jammy
 docker build -f dockerfiles/Dockerfile.jammy    -t="fullaxx/openvpn:jammy" github.com/Fullaxx/openvpn
 ```
+
+## Required Volume Mount
+This image requires 1 volume mount, a directory of profiles mounted on /profiles inside the container.
+If you want openvpn to use a specific profile, use -e CONFIGFILE=myprofile.ovpn and that config file will be located under /profiles and passed to openvpn.
+When that connection gets closed, the container will exit. If you do not specify a config file the image will use the roundrobin.py script to cycle through all profiles indefinitely.
+```
+-v /srv/docker/openvpn/profiles/:/profiles:ro
+```
+
+## Environment Variables
+* CONFIGFILE will specify a single one-time connection with a specific profile
+* RANDOMIZE_PROFILE_LIST will randomize the profile list when using roundrobin mode
+* ENABLEMASQ will enable masquarade through the tun device that openvpn creates
+```
+-e CONFIGFILE=myprofile.ovpn
+-e RANDOMIZE_PROFILE_LIST=1
+-e ENABLEMASQ=1
+```
+
+## Manually cycle to next profile
+When using roundrobin mode, this command will disconnect from the current connection and jump to the next one in the list.
+```
+docker exec -it <CONTAINER> /app/cycle.sh
+```
+
+## Logging
+Currently all logging is done through stdout/stderr.
+```
+docker logs -f <CONTAINER>
+```
+
+## Debugging
+```
+docker exec -it <CONTAINER> /app/debug.sh
+```
+
+## Alternatives
+* [dperson/openvpn-client](https://github.com/dperson/openvpn-client)
+* [qdm12/gluetun](https://github.com/qdm12/gluetun)
