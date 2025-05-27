@@ -1,5 +1,5 @@
-# openvpn
-Openvpn running in docker
+# OpenVPN
+OpenVPN running in docker
 
 ## Base Docker Image
 [Alpine](https://hub.docker.com/_/alpine) (x64) \
@@ -26,8 +26,9 @@ docker build -f dockerfiles/Dockerfile.jammy    -t="fullaxx/openvpn:jammy" githu
 
 ## Required Volume Mount
 This image requires 1 volume mount, a directory of profiles mounted on /profiles inside the container.
-If you want openvpn to use a specific profile, use -e CONFIGFILE=myprofile.ovpn and that config file will be located under /profiles and passed to openvpn.
-When that connection gets closed, the container will exit. If you do not specify a config file the image will use the roundrobin.py script to cycle through all profiles indefinitely.
+If you want OpenVPN to use a specific profile, use -e CONFIGFILE=myprofile.ovpn and that config file will be located under /profiles and passed to OpenVPN.
+When that connection gets closed, the container will exit.
+If you do not specify a config file the image will use the roundrobin.py script to cycle through all profiles indefinitely.
 ```
 -v /srv/docker/openvpn/profiles/:/profiles:ro
 ```
@@ -35,12 +36,18 @@ When that connection gets closed, the container will exit. If you do not specify
 ## Environment Variables
 * CONFIGFILE will specify a single one-time connection with a specific profile
 * RANDOMIZE_PROFILE_LIST will randomize the profile list when using roundrobin mode
-* ENABLEMASQ will enable masquarade through the tun device that openvpn creates
+* ENABLEMASQ will enable masquarade through the tun device that OpenVPN creates
 ```
 -e CONFIGFILE=myprofile.ovpn
 -e RANDOMIZE_PROFILE_LIST=1
 -e ENABLEMASQ=1
 ```
+
+## OpenVPN routing
+If you want to use OpenVPN as a masquarading router, use -e ENABLEMASQ=1.
+This will enable the iptables commands to masquarade through the tun device.
+Additionaly it will check to make sure that /proc/sys/net/ipv4/ip_forward is set to 1.
+Use --sysctl net.ipv4.ip_forward=1 or see the compose example.
 
 ## Manually cycle to next profile
 When using roundrobin mode, this command will disconnect from the current connection and jump to the next one in the list.
