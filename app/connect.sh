@@ -14,7 +14,7 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-openvpn --config $1 \
+exec openvpn --config $1 \
   --resolv-retry 0 \
   --connect-retry 1 1 \
   --connect-timeout 10 \
