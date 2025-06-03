@@ -7,7 +7,7 @@ OpenVPN running in docker
 [Ubuntu](https://hub.docker.com/_/ubuntu) (x64) Noble/Jammy
 
 ## Software
-[OpenVPN](https://openvpn.net/) - VPN software
+[OpenVPN](https://github.com/OpenVPN/openvpn/) - VPN software
 
 ## Get the image from Docker Hub or Build it locally
 ```
