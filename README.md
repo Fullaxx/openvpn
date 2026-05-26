@@ -3,28 +3,34 @@ OpenVPN running in docker
 
 ## Base Docker Image
 [Alpine](https://hub.docker.com/_/alpine) (x64) \
-[Debian](https://hub.docker.com/_/debian) (x64) Bookworm/Bullseye \
-[Ubuntu](https://hub.docker.com/_/ubuntu) (x64) Noble/Jammy
+[Debian](https://hub.docker.com/_/debian) (x64) Trixie/Bookworm/Bullseye \
+[Ubuntu](https://hub.docker.com/_/ubuntu) (x64) Resolute/Noble/Jammy
 
 ## Software
 [OpenVPN](https://github.com/OpenVPN/openvpn/) - VPN software
 
-## Get the image from Docker Hub or Build it locally
+## Get the image from GitHub Container Registry or build it locally
 ```
-docker pull fullaxx/openvpn:alpine
-docker build -f dockerfiles/Dockerfile.alpine   -t="fullaxx/openvpn:alpine" github.com/Fullaxx/openvpn
+docker pull ghcr.io/fullaxx/openvpn:alpine
+docker build -f dockerfiles/Dockerfile.alpine   -t="ghcr.io/fullaxx/openvpn:alpine" github.com/Fullaxx/openvpn
 
-docker pull fullaxx/openvpn:bookworm
-docker build -f dockerfiles/Dockerfile.bookworm -t="fullaxx/openvpn:bookworm" github.com/Fullaxx/openvpn
+docker pull ghcr.io/fullaxx/openvpn:trixie
+docker build -f dockerfiles/Dockerfile.trixie   -t="ghcr.io/fullaxx/openvpn:trixie" github.com/Fullaxx/openvpn
 
-docker pull fullaxx/openvpn:bullseye
-docker build -f dockerfiles/Dockerfile.bullseye -t="fullaxx/openvpn:bullseye" github.com/Fullaxx/openvpn
+docker pull ghcr.io/fullaxx/openvpn:bookworm
+docker build -f dockerfiles/Dockerfile.bookworm -t="ghcr.io/fullaxx/openvpn:bookworm" github.com/Fullaxx/openvpn
 
-docker pull fullaxx/openvpn:noble
-docker build -f dockerfiles/Dockerfile.noble    -t="fullaxx/openvpn:noble" github.com/Fullaxx/openvpn
+docker pull ghcr.io/fullaxx/openvpn:bullseye
+docker build -f dockerfiles/Dockerfile.bullseye -t="ghcr.io/fullaxx/openvpn:bullseye" github.com/Fullaxx/openvpn
 
-docker pull fullaxx/openvpn:jammy
-docker build -f dockerfiles/Dockerfile.jammy    -t="fullaxx/openvpn:jammy" github.com/Fullaxx/openvpn
+docker pull ghcr.io/fullaxx/openvpn:resolute
+docker build -f dockerfiles/Dockerfile.resolute -t="ghcr.io/fullaxx/openvpn:resolute" github.com/Fullaxx/openvpn
+
+docker pull ghcr.io/fullaxx/openvpn:noble
+docker build -f dockerfiles/Dockerfile.noble    -t="ghcr.io/fullaxx/openvpn:noble" github.com/Fullaxx/openvpn
+
+docker pull ghcr.io/fullaxx/openvpn:jammy
+docker build -f dockerfiles/Dockerfile.jammy    -t="ghcr.io/fullaxx/openvpn:jammy" github.com/Fullaxx/openvpn
 ```
 
 ## Required Volume Mount
