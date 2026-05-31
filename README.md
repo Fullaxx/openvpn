@@ -9,7 +9,7 @@ OpenVPN running in docker
 ## Software
 [OpenVPN](https://github.com/OpenVPN/openvpn/) - VPN software
 
-## Get the image from GitHub Container Registry or build it locally
+## Get the image from ghcr.io or build it locally
 ```
 docker pull ghcr.io/fullaxx/openvpn:alpine
 docker build -f dockerfiles/Dockerfile.alpine   -t="ghcr.io/fullaxx/openvpn:alpine" github.com/Fullaxx/openvpn
